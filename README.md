@@ -1,3 +1,2 @@
-# input-calculator
+# Katta Teknologiske Festival - årsprøve
 
-## Not finished :D

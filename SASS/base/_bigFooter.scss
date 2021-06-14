@@ -1,0 +1,22 @@
+@import "./Mixins.scss";
+
+.footer {
+  height: 10rem;
+  width: 100vw;
+
+  display: flex;
+
+  place-content: center;
+
+  padding: 3rem;
+
+  &-text {
+    font-size: var(--fs-text-big);
+    font-family: "Open Sans";
+    text-align: center;
+
+    &--link {
+      text-decoration: none;
+    }
+  }
+}
