@@ -2,7 +2,10 @@
   <div class="footer">
     <h3 class="footer-text">
       Developed with 💕 by
-      <a class="footer-text--link" href="http://victorhristov.com"
+      <a
+        target="_blank"
+        class="footer-text--link"
+        href="http://victorhristov.com"
         >Victor N. Hristov</a
       >
     </h3>

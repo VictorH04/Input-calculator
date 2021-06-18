@@ -43,3 +43,11 @@
   justify-self: center;
   align-self: end;
 }
+
+.leftBtns {
+  margin: 2rem;
+
+  &-btn {
+    padding: 1rem;
+  }
+}
