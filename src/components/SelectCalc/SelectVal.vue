@@ -18,6 +18,14 @@
     >
       {{ Multiplication }}
     </button>
+
+    <button class="leftBtns-btn" @click.prevent="chooseCalculationSquareRoot">
+      {{ SquareRoot }}
+    </button>
+
+    <button class="leftBtns-btn" @click.prevent="chooseCalculationPercent">
+      {{ Percent }}
+    </button>
   </div>
 </template>
 
@@ -45,6 +53,16 @@ export default {
       required: true,
       type: String,
     },
+
+    SquareRoot: {
+      required: true,
+      type: String,
+    },
+
+    Percent: {
+      required: true,
+      type: String,
+    },
   },
 
   methods: {
@@ -62,6 +80,14 @@ export default {
 
     chooseCalculationMultiplication() {
       this.$emit("chooseCalculationMultiplication");
+    },
+
+    chooseCalculationSquareRoot() {
+      this.$emit("chooseCalculationSquareRoot");
+    },
+
+    chooseCalculationPercent() {
+      this.$emit("chooseCalculationPercent");
     },
   },
 };
