@@ -78,9 +78,9 @@
     <CalcSymbol :calcSymbol="this.calcSymbol" />
     <sumContainer :calcSum="calcSum" />
     <SelectVal
-      @chooseCalculationPlus="chooseCalculationPlus(Plus.val1, Plus.val2)"
+      @chooseCalculationPlus="checkCalc('Plus')"
       :Plus="this.calcList.Plus"
-      @chooseCalculationMinus="chooseCalculationMinus(Minus.val1, Minus.val2)"
+      @chooseCalculationMinus="checkCalc('Minus')"
       :Minus="this.calcList.Minus"
       @chooseCalculationDivision="
         chooseCalculationDivision(Division.val1, Division.val2)
@@ -170,6 +170,10 @@ export default {
       SqRoot: false,
       Percent: false,
 
+      foo: false,
+
+      calculation: "Plus",
+
       Plus: {
         check: true,
         val1: null,
@@ -206,13 +210,22 @@ export default {
   },
 
   methods: {
+    checkCalc(calc) {
+      if (calc === "Plus") {
+        console.log("Plus");
+        this.calculation = "Plus";
+      } else if (calc === "Minus") {
+        console.log("Minus");
+        this.calculation = "Minus";
+      }
+    },
+
     chooseCalculationPlus(num1, num2) {
       this.Plus.check = true;
       this.Minus.check = false;
       this.Division.check = false;
       this.Multi.check = false;
 
-      this.clearAll();
       this.normal = true;
       this.Percent = false;
       this.SqRoot = false;
@@ -231,7 +244,6 @@ export default {
       this.Minus.check = true;
       this.Division.check = false;
       this.Multi.check = false;
-      this.clearAll();
 
       this.normal = true;
       this.Percent = false;
@@ -251,7 +263,6 @@ export default {
       this.Minus.check = false;
       this.Division.check = true;
       this.Multi.check = false;
-      this.clearAll();
 
       this.normal = true;
       this.Percent = false;
@@ -271,7 +282,6 @@ export default {
       this.Minus.check = false;
       this.Division.check = false;
       this.Multi.check = true;
-      this.clearAll();
 
       this.normal = true;
       this.Percent = false;
@@ -287,8 +297,6 @@ export default {
     },
 
     chooseCalculationSquareRoot(num) {
-      this.clearAll();
-
       this.normal = false;
       this.SqRoot = true;
       this.Percent = false;
@@ -299,8 +307,6 @@ export default {
     },
 
     chooseCalculationPercent(num, percentage) {
-      this.clearAll();
-
       this.normal = false;
       this.SqRoot = false;
       this.Percent = true;
@@ -310,45 +316,23 @@ export default {
       console.log(this.chosenCalc);
     },
 
-    clearAll() {
-      if (this.Plus.check === true) {
-        this.Minus.val1 = "";
-        this.Minus.val2 = "";
-        this.Division.val1 = "";
-        this.Division.val2 = "";
-        this.Multi.val1 = "";
-        this.Multi.val2 = "";
-        this.calcSum = "Please input a number";
-      } else if (this.Minus.check === true) {
-        this.Plus.val1 = "";
-        this.Plus.val2 = "";
-        this.Division.val1 = "";
-        this.Division.val2 = "";
-        this.Multi.val1 = "";
-        this.Multi.val2 = "";
-        this.calcSum = "Please input a number";
-      } else if (this.Division.check === true) {
-        this.Plus.val1 = "";
-        this.Plus.val2 = "";
-        this.Minus.val1 = "";
-        this.Minus.val2 = "";
-        this.Multi.val1 = "";
-        this.Multi.val2 = "";
-        this.calcSum = "Please input a number";
-      } else if (this.Multi.check === true) {
-        this.Plus.val1 = "";
-        this.Plus.val2 = "";
-        this.Minus.val1 = "";
-        this.Minus.val2 = "";
-        this.Division.val1 = "";
-        this.Division.val2 = "";
-        this.calcSum = "Please input a number";
-      }
-    },
+    clearAll() {},
 
     Calculate() {
-      this.calcSum = this.chosenCalc;
+      if (this.calculation === "Plus") {
+        this.chooseCalculationPlus(this.Plus.val1, this.Plus.val2);
+        this.calcSum = this.chosenCalc;
+        console.log(this.calcSum);
+        console.log(this.chosenCalc);
+      } else if (this.calculation === "Minus") {
+        alert("Minus");
+      }
     },
+  },
+
+  updated() {
+    // this.chooseCalculationPlus();
+    // this.Calculate();
   },
 };
 </script>
