@@ -82,19 +82,13 @@
       :Plus="this.calcList.Plus"
       @chooseCalculationMinus="checkCalc('Minus')"
       :Minus="this.calcList.Minus"
-      @chooseCalculationDivision="
-        chooseCalculationDivision(Division.val1, Division.val2)
-      "
+      @chooseCalculationDivision="checkCalc('Division')"
       :Division="this.calcList.Division"
-      @chooseCalculationMultiplication="
-        chooseCalculationMultiplication(Multi.val1, Multi.val2)
-      "
+      @chooseCalculationMultiplication="checkCalc('Multiplication')"
       :Multiplication="this.calcList.Multiplication"
-      @chooseCalculationSquareRoot="chooseCalculationSquareRoot(ValueSqRoot)"
+      @chooseCalculationSquareRoot="checkCalc('SqRoot')"
       :SquareRoot="this.calcList.SquareRoot"
-      @chooseCalculationPercent="
-        chooseCalculationPercent(numPercentage, Percentage)
-      "
+      @chooseCalculationPercent="checkCalc('Percent')"
       :Percent="this.calcList.Percent"
     />
 
@@ -170,8 +164,6 @@ export default {
       SqRoot: false,
       Percent: false,
 
-      foo: false,
-
       calculation: "Plus",
 
       Plus: {
@@ -211,25 +203,137 @@ export default {
 
   methods: {
     checkCalc(calc) {
-      if (calc === "Plus") {
-        console.log("Plus");
-        this.calculation = "Plus";
-      } else if (calc === "Minus") {
-        console.log("Minus");
-        this.calculation = "Minus";
+      switch (calc) {
+        case "Plus":
+          this.Plus.check = true;
+          this.Minus.check = false;
+          this.Division.check = false;
+          this.Multi.check = false;
+
+          this.normal = true;
+          this.Percent = false;
+          this.SqRoot = false;
+
+          this.calcSymbol = "+";
+
+          console.log("Plus");
+          this.calculation = "Plus";
+          break;
+
+        case "Minus":
+          this.Plus.check = false;
+          this.Minus.check = true;
+          this.Division.check = false;
+          this.Multi.check = false;
+
+          this.normal = true;
+          this.Percent = false;
+          this.SqRoot = false;
+
+          this.calcSymbol = "-";
+
+          console.log("Minus");
+          this.calculation = "Minus";
+          break;
+
+        case "Division":
+          this.Plus.check = false;
+          this.Minus.check = false;
+          this.Division.check = true;
+          this.Multi.check = false;
+
+          this.normal = true;
+          this.Percent = false;
+          this.SqRoot = false;
+
+          this.calcSymbol = "/";
+
+          console.log("Division");
+          this.calculation = "Division";
+          break;
+
+        case "Multiplication":
+          this.Plus.check = false;
+          this.Minus.check = false;
+          this.Division.check = false;
+          this.Multi.check = true;
+
+          this.normal = true;
+          this.Percent = false;
+          this.SqRoot = false;
+
+          this.calcSymbol = "*";
+
+          console.log("Multiplication");
+          this.calculation = "Multiplication";
+          break;
+
+        case "SqRoot":
+          this.Plus.check = false;
+          this.Minus.check = false;
+          this.Division.check = false;
+          this.Multi.check = false;
+
+          this.normal = false;
+          this.SqRoot = true;
+          this.Percent = false;
+
+          this.calcSymbol = "";
+
+          console.log("SqRoot");
+          this.calculation = "SqRoot";
+          break;
+
+        case "Percent":
+          this.Plus.check = false;
+          this.Minus.check = false;
+          this.Division.check = false;
+          this.Multi.check = false;
+
+          this.normal = false;
+          this.SqRoot = false;
+          this.Percent = true;
+
+          this.calcSymbol = "";
+
+          console.log("Percent");
+          this.calculation = "Percent";
+          break;
       }
+
+      // if (calc === "Plus") {
+      //   this.Plus.check = tr ue;
+      //   this.Minus.check = false;
+      //   this.Division.check = false;
+      //   this.Multi.check = false;
+
+      //   this.normal = true;
+      //   this.Percent = false;
+      //   this.SqRoot = false;
+      //   console.log("Plus");
+      //   this.calculation = "Plus";
+
+      // } else if (calc === "Minus") {
+      //   this.Plus.check = false;
+      //   this.Minus.check = true;
+      //   this.Division.check = false;
+      //   this.Multi.check = false;
+
+      //   this.normal = true;
+      //   this.Percent = false;
+      //   this.SqRoot = false;
+      //   console.log("Minus");
+      //   this.calculation = "Minus";
+      // } else if (calc === "Division") {
+      //   console.log("Division");
+      //   this.calculation = "Division";
+      // } else if (calc === "Multiplication") {
+      //   console.log("Multiplication");
+      //   this.calculation = "Multiplication";
+      // }
     },
 
     chooseCalculationPlus(num1, num2) {
-      this.Plus.check = true;
-      this.Minus.check = false;
-      this.Division.check = false;
-      this.Multi.check = false;
-
-      this.normal = true;
-      this.Percent = false;
-      this.SqRoot = false;
-
       let Plus = parseInt(num1) + parseInt(num2);
 
       this.chosenCalc = `Is equal to: ${Plus}`;
@@ -240,15 +344,6 @@ export default {
     },
 
     chooseCalculationMinus(num1, num2) {
-      this.Plus.check = false;
-      this.Minus.check = true;
-      this.Division.check = false;
-      this.Multi.check = false;
-
-      this.normal = true;
-      this.Percent = false;
-      this.SqRoot = false;
-
       let Minus = parseInt(num1) - parseInt(num2);
 
       this.chosenCalc = `Is equal to: ${Minus}`;
@@ -259,15 +354,6 @@ export default {
     },
 
     chooseCalculationDivision(num1, num2) {
-      this.Plus.check = false;
-      this.Minus.check = false;
-      this.Division.check = true;
-      this.Multi.check = false;
-
-      this.normal = true;
-      this.Percent = false;
-      this.SqRoot = false;
-
       let Divison = parseInt(num1) / parseInt(num2);
 
       this.chosenCalc = `Is equal to: ${Divison}`;
@@ -278,15 +364,6 @@ export default {
     },
 
     chooseCalculationMultiplication(num1, num2) {
-      this.Plus.check = false;
-      this.Minus.check = false;
-      this.Division.check = false;
-      this.Multi.check = true;
-
-      this.normal = true;
-      this.Percent = false;
-      this.SqRoot = false;
-
       let Multi = parseInt(num1) * parseInt(num2);
 
       this.chosenCalc = `Is equal to: ${Multi}`;
@@ -297,9 +374,6 @@ export default {
     },
 
     chooseCalculationSquareRoot(num) {
-      this.normal = false;
-      this.SqRoot = true;
-      this.Percent = false;
       this.chosenCalc = Math.sqrt(num);
       this.calcSymbol = "";
 
@@ -307,26 +381,112 @@ export default {
     },
 
     chooseCalculationPercent(num, percentage) {
-      this.normal = false;
-      this.SqRoot = false;
-      this.Percent = true;
       this.chosenCalc = num * (percentage / 100);
       this.calcSymbol = "";
 
       console.log(this.chosenCalc);
     },
 
-    clearAll() {},
+    clearAll() {
+      this.Plus.val1 = null;
+      this.Plus.val2 = null;
+
+      this.Minus.val1 = null;
+      this.Minus.val2 = null;
+
+      this.Division.val1 = null;
+      this.Division.val2 = null;
+
+      this.Multi.val1 = null;
+      this.Multi.val2 = null;
+
+      this.ValueSqRoot = null;
+      this.Percentage = null;
+      this.numPercentage = null;
+
+      this.calcSum = "Please input a number";
+    },
 
     Calculate() {
-      if (this.calculation === "Plus") {
-        this.chooseCalculationPlus(this.Plus.val1, this.Plus.val2);
-        this.calcSum = this.chosenCalc;
-        console.log(this.calcSum);
-        console.log(this.chosenCalc);
-      } else if (this.calculation === "Minus") {
-        alert("Minus");
+      let foo = this.calculation;
+
+      switch (foo) {
+        case "Plus":
+          this.chooseCalculationPlus(this.Plus.val1, this.Plus.val2);
+          this.calcSum = this.chosenCalc;
+          console.log(this.calcSum);
+          console.log(this.chosenCalc);
+          break;
+
+        case "Minus":
+          this.chooseCalculationMinus(this.Minus.val1, this.Minus.val2);
+          this.calcSum = this.chosenCalc;
+          console.log(this.calcSum);
+          console.log(this.chosenCalc);
+          break;
+
+        case "Division":
+          this.chooseCalculationDivision(
+            this.Division.val1,
+            this.Division.val2
+          );
+          this.calcSum = this.chosenCalc;
+          console.log(this.calcSum);
+          console.log(this.chosenCalc);
+          break;
+
+        case "Multiplication":
+          this.chooseCalculationMultiplication(
+            this.Multi.val1,
+            this.Multi.val2
+          );
+          this.calcSum = this.chosenCalc;
+          console.log(this.calcSum);
+          console.log(this.chosenCalc);
+          break;
+
+        case "SqRoot":
+          this.chooseCalculationSquareRoot(this.ValueSqRoot);
+          this.calcSum = this.chosenCalc;
+          console.log(this.calcSum);
+          console.log(this.chosenCalc);
+          break;
+
+        case "Percent":
+          this.chooseCalculationPercent(this.numPercentage, this.Percentage);
+          this.calcSum = this.chosenCalc;
+          console.log(this.calcSum);
+          console.log(this.chosenCalc);
+          break;
       }
+
+      // if (this.calculation === "Plus") {
+      // } else if (this.calculation === "Minus") {
+      //   this.chooseCalculationMinus(this.Minus.val1, this.Minus.val2);
+      //   this.calcSum = this.chosenCalc;
+      //   console.log(this.calcSum);
+      //   console.log(this.chosenCalc);
+      // } else if (this.calculation === "Division") {
+      //   this.chooseCalculationDivision(this.Division.val1, this.Division.val2);
+      //   this.calcSum = this.chosenCalc;
+      //   console.log(this.calcSum);
+      //   console.log(this.chosenCalc);
+      // } else if (this.calculation === "Multiplication") {
+      //   this.chooseCalculationMultiplication(this.Multi.val1, this.Multi.val2);
+      //   this.calcSum = this.chosenCalc;
+      //   console.log(this.calcSum);
+      //   console.log(this.chosenCalc);
+      // } else if (this.calculation === "SqRoot") {
+      //   this.chooseCalculationSquareRoot(this.ValueSqRoot);
+      //   this.calcSum = this.chosenCalc;
+      //   console.log(this.calcSum);
+      //   console.log(this.chosenCalc);
+      // } else if (this.calculation === "Percent") {
+      //   this.chooseCalculationPercent(this.numPercentage, this.Percentage);
+      //   this.calcSum = this.chosenCalc;
+      //   console.log(this.calcSum);
+      //   console.log(this.chosenCalc);
+      // }
     },
   },
 
