@@ -1,29 +1,50 @@
 <template>
   <div class="leftBtns">
-    <button class="leftBtns-btn" @click.prevent="chooseCalculationPlus">
+    <button
+      title="Plus"
+      class="leftBtns-btn"
+      @click.prevent="chooseCalculationPlus"
+    >
       {{ Plus }}
     </button>
 
-    <button class="leftBtns-btn" @click.prevent="chooseCalculationMinus">
+    <button
+      title="Minus"
+      class="leftBtns-btn"
+      @click.prevent="chooseCalculationMinus"
+    >
       {{ Minus }}
     </button>
 
-    <button class="leftBtns-btn" @click.prevent="chooseCalculationDivision">
+    <button
+      title="Division"
+      class="leftBtns-btn"
+      @click.prevent="chooseCalculationDivision"
+    >
       {{ Division }}
     </button>
 
     <button
+      title="Multiplication"
       class="leftBtns-btn"
       @click.prevent="chooseCalculationMultiplication"
     >
       {{ Multiplication }}
     </button>
 
-    <button class="leftBtns-btn" @click.prevent="chooseCalculationSquareRoot">
+    <button
+      title="Square Root"
+      class="leftBtns-btn"
+      @click.prevent="chooseCalculationSquareRoot"
+    >
       {{ SquareRoot }}
     </button>
 
-    <button class="leftBtns-btn" @click.prevent="chooseCalculationPercent">
+    <button
+      title="Percent"
+      class="leftBtns-btn"
+      @click.prevent="chooseCalculationPercent"
+    >
       {{ Percent }}
     </button>
   </div>

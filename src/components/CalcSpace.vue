@@ -92,9 +92,9 @@
       :Percent="this.calcList.Percent"
     />
 
-    <CalcBtn @Calculate="Calculate()" />
-
     <ClearBtn @clearAll="clearAll()" />
+
+    <CalcBtn @Calculate="Calculate()" />
   </div>
 </template>
 
@@ -217,6 +217,7 @@ export default {
           this.calcSymbol = "+";
 
           console.log("Plus");
+          this.clearAll();
           this.calculation = "Plus";
           break;
 
@@ -233,6 +234,7 @@ export default {
           this.calcSymbol = "-";
 
           console.log("Minus");
+          this.clearAll();
           this.calculation = "Minus";
           break;
 
@@ -249,6 +251,7 @@ export default {
           this.calcSymbol = "/";
 
           console.log("Division");
+          this.clearAll();
           this.calculation = "Division";
           break;
 
@@ -265,6 +268,7 @@ export default {
           this.calcSymbol = "*";
 
           console.log("Multiplication");
+          this.clearAll();
           this.calculation = "Multiplication";
           break;
 
@@ -281,6 +285,7 @@ export default {
           this.calcSymbol = "";
 
           console.log("SqRoot");
+          this.clearAll();
           this.calculation = "SqRoot";
           break;
 
@@ -297,6 +302,7 @@ export default {
           this.calcSymbol = "";
 
           console.log("Percent");
+          this.clearAll();
           this.calculation = "Percent";
           break;
       }
@@ -388,6 +394,8 @@ export default {
     },
 
     clearAll() {
+      this.calcSum = "Please input a number";
+
       this.Plus.val1 = null;
       this.Plus.val2 = null;
 
@@ -403,7 +411,9 @@ export default {
       this.ValueSqRoot = null;
       this.Percentage = null;
       this.numPercentage = null;
+    },
 
+    clearSum() {
       this.calcSum = "Please input a number";
     },
 
