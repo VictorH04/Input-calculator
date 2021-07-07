@@ -14,7 +14,7 @@ export default {
   props: {
     answerArrays: {
       required: true,
-      type: Array,
+    //   type: Array,
     },
   },
 
