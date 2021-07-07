@@ -1,100 +1,103 @@
 <template>
-  <div class="calcSpace">
-    <Plus1
-      :Plus1="Plus.val1"
-      v-model="Plus.val1"
-      @getInput="getInput()"
-      v-if="this.normal === true && this.Plus.check === true"
-    />
-    <Plus2
-      :Plus2="Plus.val2"
-      v-model="Plus.val2"
-      @getInput="getInput()"
-      v-if="this.normal === true && this.Plus.check === true"
-    />
+  <div class="calc">
+    <div class="calc-space">
+      <Plus1
+        :Plus1="Plus.val1"
+        v-model="Plus.val1"
+        @getInput="getInput()"
+        v-if="this.normal === true && this.Plus.check === true"
+      />
+      <Plus2
+        :Plus2="Plus.val2"
+        v-model="Plus.val2"
+        @getInput="getInput()"
+        v-if="this.normal === true && this.Plus.check === true"
+      />
 
-    <Minus1
-      :Minus1="Minus.val1"
-      v-model="Minus.val1"
-      @getInput="getInput()"
-      v-if="this.normal === true && this.Minus.check === true"
-    />
-    <Minus2
-      :Minus2="Minus.val2"
-      v-model="Minus.val2"
-      @getInput="getInput()"
-      v-if="this.normal === true && this.Minus.check === true"
-    />
+      <Minus1
+        :Minus1="Minus.val1"
+        v-model="Minus.val1"
+        @getInput="getInput()"
+        v-if="this.normal === true && this.Minus.check === true"
+      />
+      <Minus2
+        :Minus2="Minus.val2"
+        v-model="Minus.val2"
+        @getInput="getInput()"
+        v-if="this.normal === true && this.Minus.check === true"
+      />
 
-    <Division1
-      :Division1="Division.val1"
-      v-model="Division.val1"
-      @getInput="getInput()"
-      v-if="this.normal === true && this.Division.check === true"
-    />
+      <Division1
+        :Division1="Division.val1"
+        v-model="Division.val1"
+        @getInput="getInput()"
+        v-if="this.normal === true && this.Division.check === true"
+      />
 
-    <Division2
-      :Division2="Division.val2"
-      v-model="Division.val2"
-      @getInput="getInput()"
-      v-if="this.normal === true && this.Division.check === true"
-    />
+      <Division2
+        :Division2="Division.val2"
+        v-model="Division.val2"
+        @getInput="getInput()"
+        v-if="this.normal === true && this.Division.check === true"
+      />
 
-    <Multi1
-      :Multi1="Multi.val1"
-      v-model="Multi.val1"
-      @getInput="getInput()"
-      v-if="this.normal === true && this.Multi.check === true"
-    />
+      <Multi1
+        :Multi1="Multi.val1"
+        v-model="Multi.val1"
+        @getInput="getInput()"
+        v-if="this.normal === true && this.Multi.check === true"
+      />
 
-    <Multi2
-      :Multi2="Multi.val2"
-      v-model="Multi.val2"
-      @getInput="getInput()"
-      v-if="this.normal === true && this.Multi.check === true"
-    />
+      <Multi2
+        :Multi2="Multi.val2"
+        v-model="Multi.val2"
+        @getInput="getInput()"
+        v-if="this.normal === true && this.Multi.check === true"
+      />
 
-    <CalcSqRoot
-      :calc3Value="ValueSqRoot"
-      v-model="ValueSqRoot"
-      @getInput="getInput()"
-      v-if="this.SqRoot === true"
-    />
+      <CalcSqRoot
+        :calc3Value="ValueSqRoot"
+        v-model="ValueSqRoot"
+        @getInput="getInput()"
+        v-if="this.SqRoot === true"
+      />
 
-    <CalcPercent
-      :calc4Value="Percentage"
-      v-model="Percentage"
-      @getInput="getInput()"
-      v-if="this.Percent === true"
-    />
+      <CalcPercent
+        :calc4Value="Percentage"
+        v-model="Percentage"
+        @getInput="getInput()"
+        v-if="this.Percent === true"
+      />
 
-    <CalcPercent2
-      :calc5Value="numPercentage"
-      v-model="numPercentage"
-      @getInput="getInput()"
-      v-if="this.Percent === true"
-    />
+      <CalcPercent2
+        :calc5Value="numPercentage"
+        v-model="numPercentage"
+        @getInput="getInput()"
+        v-if="this.Percent === true"
+      />
 
-    <CalcSymbol :calcSymbol="this.calcSymbol" />
-    <sumContainer :calcSum="calcSum" />
-    <SelectVal
-      @chooseCalculationPlus="checkCalc('Plus')"
-      :Plus="this.calcList.Plus"
-      @chooseCalculationMinus="checkCalc('Minus')"
-      :Minus="this.calcList.Minus"
-      @chooseCalculationDivision="checkCalc('Division')"
-      :Division="this.calcList.Division"
-      @chooseCalculationMultiplication="checkCalc('Multiplication')"
-      :Multiplication="this.calcList.Multiplication"
-      @chooseCalculationSquareRoot="checkCalc('SqRoot')"
-      :SquareRoot="this.calcList.SquareRoot"
-      @chooseCalculationPercent="checkCalc('Percent')"
-      :Percent="this.calcList.Percent"
-    />
+      <CalcSymbol :calcSymbol="this.calcSymbol" />
+      <sumContainer :calcSum="calcSum" />
+      <SelectVal
+        @chooseCalculationPlus="checkCalc('Plus')"
+        :Plus="this.calcList.Plus"
+        @chooseCalculationMinus="checkCalc('Minus')"
+        :Minus="this.calcList.Minus"
+        @chooseCalculationDivision="checkCalc('Division')"
+        :Division="this.calcList.Division"
+        @chooseCalculationMultiplication="checkCalc('Multiplication')"
+        :Multiplication="this.calcList.Multiplication"
+        @chooseCalculationSquareRoot="checkCalc('SqRoot')"
+        :SquareRoot="this.calcList.SquareRoot"
+        @chooseCalculationPercent="checkCalc('Percent')"
+        :Percent="this.calcList.Percent"
+      />
 
-    <ClearBtn @clearAll="clearAll()" />
+      <ClearBtn @clearAll="clearAll()" />
 
-    <CalcBtn @Calculate="Calculate()" />
+      <CalcBtn @Calculate="Calculate()" />
+    </div>
+    <lastCalculations :answerArrays="this.arr" />
   </div>
 </template>
 
@@ -122,6 +125,8 @@ import CalcSymbol from "../components/Symbol/calcSymbol.vue";
 import ClearBtn from "../components/ClearBtn/ClearBtn.vue";
 import CalcBtn from "../components/Calculate/Calculate.vue";
 
+import lastCalculations from "../components/lastCalculations/lastCalculations.vue";
+
 export default {
   name: "calcSpace",
 
@@ -146,6 +151,8 @@ export default {
     CalcSqRoot,
     CalcPercent,
     CalcPercent2,
+
+    lastCalculations,
   },
 
   data() {
@@ -156,7 +163,9 @@ export default {
       calcSum: "Please input a number",
 
       chosenCalc: 0,
+
       answer: null,
+      totalAnswer: null,
 
       calcSymbol: "+",
 
@@ -165,6 +174,8 @@ export default {
       Percent: false,
 
       calculation: "Plus",
+
+      arr: [],
 
       Plus: {
         check: true,
@@ -344,6 +355,8 @@ export default {
 
       this.chosenCalc = `Is equal to: ${Plus}`;
 
+      this.answer = Plus;
+
       this.calcSymbol = "+";
 
       console.log(this.chosenCalc);
@@ -353,6 +366,8 @@ export default {
       let Minus = parseInt(num1) - parseInt(num2);
 
       this.chosenCalc = `Is equal to: ${Minus}`;
+
+      this.answer = Minus;
 
       this.calcSymbol = "-";
 
@@ -364,6 +379,8 @@ export default {
 
       this.chosenCalc = `Is equal to: ${Divison}`;
 
+      this.answer = Divison;
+
       this.calcSymbol = "/";
 
       console.log(this.chosenCalc);
@@ -374,6 +391,8 @@ export default {
 
       this.chosenCalc = `Is equal to: ${Multi}`;
 
+      this.answer = Multi;
+
       this.calcSymbol = "*";
 
       console.log(this.chosenCalc);
@@ -381,6 +400,9 @@ export default {
 
     chooseCalculationSquareRoot(num) {
       this.chosenCalc = Math.sqrt(num);
+
+      this.answer = this.chosenCalc;
+
       this.calcSymbol = "";
 
       console.log(this.chosenCalc);
@@ -388,6 +410,9 @@ export default {
 
     chooseCalculationPercent(num, percentage) {
       this.chosenCalc = num * (percentage / 100);
+
+      this.answer = this.chosenCalc;
+
       this.calcSymbol = "";
 
       console.log(this.chosenCalc);
@@ -426,6 +451,19 @@ export default {
           this.calcSum = this.chosenCalc;
           console.log(this.calcSum);
           console.log(this.chosenCalc);
+          console.log(
+            `${this.Plus.val1} ${this.calcList.Plus} ${this.Plus.val2} = ${this.answer}`
+          );
+
+          console.log(this.totalAnswer);
+          console.log(this.arr);
+
+          this.totalAnswer = `${this.Plus.val1} ${this.calcList.Plus} ${this.Plus.val2} = ${this.answer}`;
+
+          this.arr.push(this.totalAnswer);
+
+          console.log(this.arr);
+          console.log(this.totalAnswer);
           break;
 
         case "Minus":
@@ -433,6 +471,19 @@ export default {
           this.calcSum = this.chosenCalc;
           console.log(this.calcSum);
           console.log(this.chosenCalc);
+          console.log(
+            `${this.Minus.val1} ${this.calcList.Minus} ${this.Minus.val2} = ${this.answer}`
+          );
+
+          console.log(this.totalAnswer);
+          console.log(this.arr);
+
+          this.totalAnswer = `${this.Minus.val1} ${this.calcList.Minus} ${this.Minus.val2} = ${this.answer}`;
+
+          this.arr.push(this.totalAnswer);
+
+          console.log(this.arr);
+          console.log(this.totalAnswer);
           break;
 
         case "Division":
@@ -443,6 +494,9 @@ export default {
           this.calcSum = this.chosenCalc;
           console.log(this.calcSum);
           console.log(this.chosenCalc);
+          console.log(
+            `${this.Division.val1} ${this.calcList.Division} ${this.Division.val2} = ${this.answer}`
+          );
           break;
 
         case "Multiplication":
@@ -453,6 +507,9 @@ export default {
           this.calcSum = this.chosenCalc;
           console.log(this.calcSum);
           console.log(this.chosenCalc);
+          console.log(
+            `${this.Multi.val1} ${this.calcList.Multiplication} ${this.Multi.val2} = ${this.answer}`
+          );
           break;
 
         case "SqRoot":
@@ -460,6 +517,9 @@ export default {
           this.calcSum = this.chosenCalc;
           console.log(this.calcSum);
           console.log(this.chosenCalc);
+          console.log(
+            `${this.ValueSqRoot}${this.calcList.SquareRoot} = ${this.answer}`
+          );
           break;
 
         case "Percent":
@@ -467,6 +527,9 @@ export default {
           this.calcSum = this.chosenCalc;
           console.log(this.calcSum);
           console.log(this.chosenCalc);
+          console.log(
+            `${this.Percentage}${this.calcList.Percent} of ${this.numPercentage} = ${this.answer}`
+          );
           break;
       }
 
