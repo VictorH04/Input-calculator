@@ -440,6 +440,8 @@ export default {
       this.ValueSqRoot = null;
       this.Percentage = null;
       this.numPercentage = null;
+
+      localStorage.removeItem("calculations");
     },
 
     clearSum() {
@@ -451,26 +453,57 @@ export default {
 
       console.log(this.count);
 
+      let oldData;
+
       switch (foo) {
         case "Plus":
+          if (
+            this.Plus.val1 &&
+            this.Plus.val2 &&
+            this.Minus.val1 &&
+            this.Minus.val2 &&
+            this.Division.val1 &&
+            this.Division.val2 &&
+            this.Multi.val1 &&
+            this.Multi.val2 &&
+            this.ValueSqRoot &&
+            this.numPercentage &&
+            this.Percentage === ""
+          ) {
+            console.log("Empty");
+            alert("Please input a value");
+          }
+
           this.chooseCalculationPlus(this.Plus.val1, this.Plus.val2);
           this.calcSum = this.chosenCalc;
 
           this.totalAnswer = `${this.Plus.val1} ${this.calcList.Plus} ${this.Plus.val2} = ${this.answer}`;
 
-          localStorage.setItem(this.count, this.totalAnswer);
+          if (localStorage.getItem("calculations") == null) {
+            localStorage.setItem("calculations", "[]");
+          }
 
-          this.count++;
-          this.arr.push(
-            localStorage.getItem(1),
-            localStorage.getItem(2),
-            localStorage.getItem(3),
-            localStorage.getItem(4),
-            localStorage.getItem(5)
-          );
+          oldData = JSON.parse(localStorage.getItem("calculations"));
 
-          console.log(this.arr);
-          console.log(this.totalAnswer);
+          if (oldData.length >= 5) {
+            oldData.splice(5);
+          }
+
+          if (this.Plus.val1 && this.Plus.val2 && this.answer != null) {
+            oldData.unshift([this.totalAnswer]);
+          } else {
+            // alert("Please input");
+          }
+
+          localStorage.setItem("calculations", JSON.stringify(oldData));
+
+          this.arr.push(oldData[0].toString());
+          this.arr.push(oldData[1].toString());
+          this.arr.push(oldData[2].toString());
+          this.arr.push(oldData[3].toString());
+          this.arr.push(oldData[4].toString());
+
+          console.log(oldData);
           break;
 
         case "Minus":
@@ -486,8 +519,6 @@ export default {
           console.log(this.arr);
 
           this.totalAnswer = `${this.Minus.val1} ${this.calcList.Minus} ${this.Minus.val2} = ${this.answer}`;
-
-          this.arr.push(this.totalAnswer);
 
           console.log(this.arr);
           console.log(this.totalAnswer);
