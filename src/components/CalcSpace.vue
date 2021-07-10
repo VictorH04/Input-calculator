@@ -341,7 +341,6 @@ export default {
       //   this.Minus.check = false;
       //   this.Division.check = false;
       //   this.Multi.check = false;
-
       //   this.normal = true;
       //   this.Percent = false;
       //   this.SqRoot = false;
