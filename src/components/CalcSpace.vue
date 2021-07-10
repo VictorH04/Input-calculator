@@ -97,7 +97,11 @@
 
       <CalcBtn @Calculate="Calculate()" />
     </div>
-    <lastCalculations :answerArrays="this.arr" />
+    <lastCalculations
+      v-if="reRenderComp === true"
+      :answerArrays="this.arr"
+      :key="componentKey"
+    />
 
     <h1>{{ this.testing }}</h1>
   </div>
@@ -182,6 +186,14 @@ export default {
       count: 0,
 
       testing: null,
+
+      oldData: null,
+
+      bar: false,
+
+      componentKey: 0,
+
+      reRenderComp: true,
 
       Plus: {
         check: true,
@@ -423,6 +435,7 @@ export default {
     },
 
     clearAll() {
+      this.$router.go(0);
       this.calcSum = "Please input a number";
 
       this.Plus.val1 = null;
@@ -442,6 +455,7 @@ export default {
       this.numPercentage = null;
 
       localStorage.removeItem("calculations");
+      this.componentKey += 1;
     },
 
     clearSum() {
@@ -449,31 +463,13 @@ export default {
     },
 
     Calculate() {
+      this.componentKey += 1;
       let foo = this.calculation;
 
       console.log(this.count);
 
-      let oldData;
-
       switch (foo) {
         case "Plus":
-          if (
-            this.Plus.val1 &&
-            this.Plus.val2 &&
-            this.Minus.val1 &&
-            this.Minus.val2 &&
-            this.Division.val1 &&
-            this.Division.val2 &&
-            this.Multi.val1 &&
-            this.Multi.val2 &&
-            this.ValueSqRoot &&
-            this.numPercentage &&
-            this.Percentage === ""
-          ) {
-            console.log("Empty");
-            alert("Please input a value");
-          }
-
           this.chooseCalculationPlus(this.Plus.val1, this.Plus.val2);
           this.calcSum = this.chosenCalc;
 
@@ -483,27 +479,30 @@ export default {
             localStorage.setItem("calculations", "[]");
           }
 
-          oldData = JSON.parse(localStorage.getItem("calculations"));
+          this.oldData = JSON.parse(localStorage.getItem("calculations"));
 
-          if (oldData.length >= 5) {
-            oldData.splice(5);
+          if (this.oldData.length >= 5) {
+            this.oldData.splice(5);
           }
 
           if (this.Plus.val1 && this.Plus.val2 && this.answer != null) {
-            oldData.unshift([this.totalAnswer]);
+            this.oldData.unshift([this.totalAnswer]);
           } else {
             // alert("Please input");
           }
 
-          localStorage.setItem("calculations", JSON.stringify(oldData));
+          localStorage.setItem("calculations", JSON.stringify(this.oldData));
 
-          this.arr.push(oldData[0].toString());
-          this.arr.push(oldData[1].toString());
-          this.arr.push(oldData[2].toString());
-          this.arr.push(oldData[3].toString());
-          this.arr.push(oldData[4].toString());
+          console.log(this.totalAnswer);
+          console.log(this.oldData);
+          this.arr = [];
 
-          console.log(oldData);
+          this.arr.unshift(this.oldData[0].toString());
+          this.arr.push(this.oldData[1].toString());
+          this.arr.push(this.oldData[2].toString());
+          this.arr.push(this.oldData[3].toString());
+          this.arr.push(this.oldData[4].toString());
+
           break;
 
         case "Minus":
@@ -574,7 +573,6 @@ export default {
   },
 
   mounted() {
-    // this.chooseCalculationPlus();
     this.Calculate();
   },
 };
