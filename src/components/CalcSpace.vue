@@ -102,8 +102,6 @@
       :answerArrays="this.arr"
       :key="componentKey"
     />
-
-    <h1>{{ this.testing }}</h1>
   </div>
 </template>
 
@@ -246,7 +244,7 @@ export default {
           this.calcSymbol = "+";
 
           console.log("Plus");
-          this.clearAll();
+
           this.calculation = "Plus";
           break;
 
@@ -263,7 +261,7 @@ export default {
           this.calcSymbol = "-";
 
           console.log("Minus");
-          this.clearAll();
+
           this.calculation = "Minus";
           break;
 
@@ -280,7 +278,7 @@ export default {
           this.calcSymbol = "/";
 
           console.log("Division");
-          this.clearAll();
+
           this.calculation = "Division";
           break;
 
@@ -297,7 +295,7 @@ export default {
           this.calcSymbol = "*";
 
           console.log("Multiplication");
-          this.clearAll();
+
           this.calculation = "Multiplication";
           break;
 
@@ -314,7 +312,7 @@ export default {
           this.calcSymbol = "";
 
           console.log("SqRoot");
-          this.clearAll();
+
           this.calculation = "SqRoot";
           break;
 
@@ -331,40 +329,10 @@ export default {
           this.calcSymbol = "";
 
           console.log("Percent");
-          this.clearAll();
+
           this.calculation = "Percent";
           break;
       }
-
-      // if (calc === "Plus") {
-      //   this.Plus.check = tr ue;
-      //   this.Minus.check = false;
-      //   this.Division.check = false;
-      //   this.Multi.check = false;
-      //   this.normal = true;
-      //   this.Percent = false;
-      //   this.SqRoot = false;
-      //   console.log("Plus");
-      //   this.calculation = "Plus";
-
-      // } else if (calc === "Minus") {
-      //   this.Plus.check = false;
-      //   this.Minus.check = true;
-      //   this.Division.check = false;
-      //   this.Multi.check = false;
-
-      //   this.normal = true;
-      //   this.Percent = false;
-      //   this.SqRoot = false;
-      //   console.log("Minus");
-      //   this.calculation = "Minus";
-      // } else if (calc === "Division") {
-      //   console.log("Division");
-      //   this.calculation = "Division";
-      // } else if (calc === "Multiplication") {
-      //   console.log("Multiplication");
-      //   this.calculation = "Multiplication";
-      // }
     },
 
     chooseCalculationPlus(num1, num2) {
@@ -392,9 +360,9 @@ export default {
     chooseCalculationDivision(num1, num2) {
       let Divison = parseInt(num1) / parseInt(num2);
 
-      this.chosenCalc = `Is equal to: ${Divison}`;
+      this.chosenCalc = `Is equal to: ${Divison.toFixed(3)}`;
 
-      this.answer = Divison;
+      this.answer = Divison.toFixed(3);
 
       this.calcSymbol = "/";
 
@@ -414,7 +382,7 @@ export default {
     },
 
     chooseCalculationSquareRoot(num) {
-      this.chosenCalc = Math.sqrt(num);
+      this.chosenCalc = Math.sqrt(num).toFixed(3);
 
       this.answer = this.chosenCalc;
 
@@ -424,7 +392,7 @@ export default {
     },
 
     chooseCalculationPercent(num, percentage) {
-      this.chosenCalc = num * (percentage / 100);
+      this.chosenCalc = num * (percentage / 100).toFixed(3);
 
       this.answer = this.chosenCalc;
 
@@ -457,8 +425,24 @@ export default {
       this.componentKey += 1;
     },
 
-    clearSum() {
+    clearInputs() {
       this.calcSum = "Please input a number";
+
+      this.Plus.val1 = null;
+      this.Plus.val2 = null;
+
+      this.Minus.val1 = null;
+      this.Minus.val2 = null;
+
+      this.Division.val1 = null;
+      this.Division.val2 = null;
+
+      this.Multi.val1 = null;
+      this.Multi.val2 = null;
+
+      this.ValueSqRoot = null;
+      this.Percentage = null;
+      this.numPercentage = null;
     },
 
     Calculate() {
@@ -507,19 +491,36 @@ export default {
         case "Minus":
           this.chooseCalculationMinus(this.Minus.val1, this.Minus.val2);
           this.calcSum = this.chosenCalc;
-          console.log(this.calcSum);
-          console.log(this.chosenCalc);
-          console.log(
-            `${this.Minus.val1} ${this.calcList.Minus} ${this.Minus.val2} = ${this.answer}`
-          );
-
-          console.log(this.totalAnswer);
-          console.log(this.arr);
 
           this.totalAnswer = `${this.Minus.val1} ${this.calcList.Minus} ${this.Minus.val2} = ${this.answer}`;
 
-          console.log(this.arr);
+          if (localStorage.getItem("calculations") == null) {
+            localStorage.setItem("calculations", "[]");
+          }
+
+          this.oldData = JSON.parse(localStorage.getItem("calculations"));
+
+          if (this.oldData.length >= 5) {
+            this.oldData.splice(5);
+          }
+
+          if (this.Minus.val1 && this.Minus.val2 && this.answer != null) {
+            this.oldData.unshift([this.totalAnswer]);
+          } else {
+            // alert("Please input");
+          }
+
+          localStorage.setItem("calculations", JSON.stringify(this.oldData));
+
           console.log(this.totalAnswer);
+          console.log(this.oldData);
+          this.arr = [];
+
+          this.arr.unshift(this.oldData[0].toString());
+          this.arr.push(this.oldData[1].toString());
+          this.arr.push(this.oldData[2].toString());
+          this.arr.push(this.oldData[3].toString());
+          this.arr.push(this.oldData[4].toString());
           break;
 
         case "Division":
@@ -528,11 +529,36 @@ export default {
             this.Division.val2
           );
           this.calcSum = this.chosenCalc;
-          console.log(this.calcSum);
-          console.log(this.chosenCalc);
-          console.log(
-            `${this.Division.val1} ${this.calcList.Division} ${this.Division.val2} = ${this.answer}`
-          );
+
+          this.totalAnswer = `${this.Division.val1} ${this.calcList.Division} ${this.Division.val2} = ${this.answer}`;
+
+          if (localStorage.getItem("calculations") == null) {
+            localStorage.setItem("calculations", "[]");
+          }
+
+          this.oldData = JSON.parse(localStorage.getItem("calculations"));
+
+          if (this.oldData.length >= 5) {
+            this.oldData.splice(5);
+          }
+
+          if (this.Division.val1 && this.Division.val2 && this.answer != null) {
+            this.oldData.unshift([this.totalAnswer]);
+          } else {
+            // alert("Please input");
+          }
+
+          localStorage.setItem("calculations", JSON.stringify(this.oldData));
+
+          console.log(this.totalAnswer);
+          console.log(this.oldData);
+          this.arr = [];
+
+          this.arr.unshift(this.oldData[0].toString());
+          this.arr.push(this.oldData[1].toString());
+          this.arr.push(this.oldData[2].toString());
+          this.arr.push(this.oldData[3].toString());
+          this.arr.push(this.oldData[4].toString());
           break;
 
         case "Multiplication":
@@ -541,31 +567,106 @@ export default {
             this.Multi.val2
           );
           this.calcSum = this.chosenCalc;
-          console.log(this.calcSum);
-          console.log(this.chosenCalc);
-          console.log(
-            `${this.Multi.val1} ${this.calcList.Multiplication} ${this.Multi.val2} = ${this.answer}`
-          );
+
+          this.totalAnswer = `${this.Multi.val1} ${this.calcList.Multiplication} ${this.Multi.val2} = ${this.answer}`;
+
+          if (localStorage.getItem("calculations") == null) {
+            localStorage.setItem("calculations", "[]");
+          }
+
+          this.oldData = JSON.parse(localStorage.getItem("calculations"));
+
+          if (this.oldData.length >= 5) {
+            this.oldData.splice(5);
+          }
+
+          if (this.Multi.val1 && this.Multi.val2 && this.answer != null) {
+            this.oldData.unshift([this.totalAnswer]);
+          } else {
+            // alert("Please input");
+          }
+
+          localStorage.setItem("calculations", JSON.stringify(this.oldData));
+
+          console.log(this.totalAnswer);
+          console.log(this.oldData);
+          this.arr = [];
+
+          this.arr.unshift(this.oldData[0].toString());
+          this.arr.push(this.oldData[1].toString());
+          this.arr.push(this.oldData[2].toString());
+          this.arr.push(this.oldData[3].toString());
+          this.arr.push(this.oldData[4].toString());
           break;
 
         case "SqRoot":
           this.chooseCalculationSquareRoot(this.ValueSqRoot);
           this.calcSum = this.chosenCalc;
-          console.log(this.calcSum);
-          console.log(this.chosenCalc);
-          console.log(
-            `${this.ValueSqRoot}${this.calcList.SquareRoot} = ${this.answer}`
-          );
+
+          this.totalAnswer = `${this.calcList.SquareRoot}${this.ValueSqRoot} = ${this.answer}`;
+
+          if (localStorage.getItem("calculations") == null) {
+            localStorage.setItem("calculations", "[]");
+          }
+
+          this.oldData = JSON.parse(localStorage.getItem("calculations"));
+
+          if (this.oldData.length >= 5) {
+            this.oldData.splice(5);
+          }
+
+          if (this.ValueSqRoot && this.answer != null) {
+            this.oldData.unshift([this.totalAnswer]);
+          } else {
+            // alert("Please input");
+          }
+
+          localStorage.setItem("calculations", JSON.stringify(this.oldData));
+
+          console.log(this.totalAnswer);
+          console.log(this.oldData);
+          this.arr = [];
+
+          this.arr.unshift(this.oldData[0].toString());
+          this.arr.push(this.oldData[1].toString());
+          this.arr.push(this.oldData[2].toString());
+          this.arr.push(this.oldData[3].toString());
+          this.arr.push(this.oldData[4].toString());
           break;
 
         case "Percent":
           this.chooseCalculationPercent(this.numPercentage, this.Percentage);
           this.calcSum = this.chosenCalc;
-          console.log(this.calcSum);
-          console.log(this.chosenCalc);
-          console.log(
-            `${this.Percentage}${this.calcList.Percent} of ${this.numPercentage} = ${this.answer}`
-          );
+
+          this.totalAnswer = `${this.Percentage}${this.calcList.Percent} of ${this.numPercentage} = ${this.answer}`;
+
+          if (localStorage.getItem("calculations") == null) {
+            localStorage.setItem("calculations", "[]");
+          }
+
+          this.oldData = JSON.parse(localStorage.getItem("calculations"));
+
+          if (this.oldData.length >= 5) {
+            this.oldData.splice(5);
+          }
+
+          if (this.Percentage && this.numPercentage && this.answer != null) {
+            this.oldData.unshift([this.totalAnswer]);
+          } else {
+            // alert("Please input");
+          }
+
+          localStorage.setItem("calculations", JSON.stringify(this.oldData));
+
+          console.log(this.totalAnswer);
+          console.log(this.oldData);
+          this.arr = [];
+
+          this.arr.unshift(this.oldData[0].toString());
+          this.arr.push(this.oldData[1].toString());
+          this.arr.push(this.oldData[2].toString());
+          this.arr.push(this.oldData[3].toString());
+          this.arr.push(this.oldData[4].toString());
           break;
       }
     },
