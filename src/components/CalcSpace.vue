@@ -220,8 +220,8 @@ export default {
       calcList: {
         Plus: "+",
         Minus: "-",
-        Division: "/",
-        Multiplication: "*",
+        Division: "÷",
+        Multiplication: "×",
         SquareRoot: "√",
         Percent: "%",
       },
@@ -275,7 +275,7 @@ export default {
           this.Percent = false;
           this.SqRoot = false;
 
-          this.calcSymbol = "/";
+          this.calcSymbol = "÷";
 
           console.log("Division");
 
@@ -292,7 +292,7 @@ export default {
           this.Percent = false;
           this.SqRoot = false;
 
-          this.calcSymbol = "*";
+          this.calcSymbol = "×";
 
           console.log("Multiplication");
 
