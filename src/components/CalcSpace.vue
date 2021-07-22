@@ -398,7 +398,7 @@ export default {
 
       this.calcSymbol = "";
 
-      console.log(this.chosenCalc);
+      console.log(`${this.chosenCalc}%`);
     },
 
     clearAll() {
@@ -446,7 +446,7 @@ export default {
     },
 
     Calculate() {
-      this.componentKey += 1;
+      // this.componentKey += 1;
       let foo = this.calculation;
 
       console.log(this.count);
@@ -669,6 +669,18 @@ export default {
           this.arr.push(this.oldData[4].toString());
           break;
       }
+
+      this.Plus.val1 = null;
+      this.Plus.val2 = null;
+      this.Minus.val1 = null;
+      this.Minus.val2 = null;
+      this.Division.val1 = null;
+      this.Division.val2 = null;
+      this.Multi.val1 = null;
+      this.Multi.val2 = null;
+      this.ValueSqRoot = null;
+      this.Percentage = null;
+      this.numPercentage = null;
     },
   },
 

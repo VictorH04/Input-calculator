@@ -1,9 +1,11 @@
 <template>
   <div class="lastCalculations">
     <h1 class="lastCalculations-title">Last calculations</h1>
-    <p class="lastCalculations-text" v-for="item in answerArrays" :key="item">
-      {{ item }}
-    </p>
+    <transition-group name="slide-fade" tag="p">
+      <p class="lastCalculations-text" v-for="item in answerArrays" :key="item">
+        {{ item }}
+      </p>
+    </transition-group>
   </div>
 </template>
 
@@ -14,7 +16,7 @@ export default {
   props: {
     answerArrays: {
       required: true,
-    //   type: Array,
+      //   type: Array,
     },
   },
 
