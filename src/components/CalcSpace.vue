@@ -376,7 +376,7 @@ export default {
 
       this.answer = Multi;
 
-      this.calcSymbol = "*";
+      this.calcSymbol = "×";
 
       console.log(this.chosenCalc);
     },
